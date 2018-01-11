@@ -22,7 +22,7 @@ export default new Router({
       component: NewsGenres,
     },
     {
-      path: '/sources/:source',
+      path: '/sources/:type/:source',
       name: 'sources',
       component: NewsSources,
     },
