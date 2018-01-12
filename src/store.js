@@ -1,6 +1,9 @@
 /* eslint-disable quotes */
+/* eslint-disable no-console */
+/* eslint-disable no-param-reassign */
 import Vue from 'vue';
 import Vuex from 'vuex';
+import axios from 'axios';
 
 Vue.use(Vuex);
 
@@ -16,6 +19,11 @@ export default new Vuex.Store({
       'vue',
       'sports',
     ],
+
+    currentNews: {
+      id: '',
+      data: [],
+    },
 
     newsSources: {
       hnews: {
@@ -114,20 +122,49 @@ export default new Vuex.Store({
   // define the getters for the store to be available to app components
   getters: {
     getBaseUrl(state) {
-      return () => state.baseServerUrl;
+      return state.baseServerUrl;
     },
     getSourceCollections(state) {
-      return () => state.sourceCollections;
+      return state.sourceCollections;
     },
     getSources(state) {
-      return () => state.newsSources;
+      return state.newsSources;
     },
     getSourceKeys(state) {
-      return () => Object.keys(state.newsSources);
+      return Object.keys(state.newsSources);
+    },
+    getLatestFetchedNews(state) {
+      return state.currentNews.data;
     },
   },
 
   // define the possible mutations that can be applied to our state
   mutations: {
+    getNews(state, payload) {
+      state.currentNews.data = payload.data;
+      state.currentNews.id = payload.id;
+    },
+  },
+
+  actions: {
+    fetchNews(context, sourceId) {
+      const state = context.state;
+      const newsUrl = state.newsSources[sourceId].endpoint;
+
+      const server = axios.create({
+        baseURL: state.baseServerUrl,
+        responseType: 'json',
+      });
+
+      server.get(newsUrl)
+        .then((resp) => {
+          console.log(`AXIOS RESP: ${resp.data}`);
+          context.commit('getNews', { data: resp.data, id: sourceId });
+        })
+        .catch((err) => {
+          // TODO: error ACTION to display error banner
+          console.log(`AXIOS ERR: ${err}`);
+        });
+    },
   },
 });
