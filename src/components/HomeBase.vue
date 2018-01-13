@@ -1,16 +1,15 @@
 <template>
     <div id='home'>
-      <h2>I am HOME!</h2>
-      <div v-for="source in sourceKeys">
-        <a :href="endpoint(source)"> {{ apiSources[source].title }} </a>
-      </div>
+      <sidebar></sidebar>
+      <news-feed></news-feed>
     </div>
 </template>
 
 <script>
 /* eslint-disable no-console */
 
-import { mapGetters } from 'vuex';
+import Sidebar from '@/components/Sidebar';
+import NewsFeed from '@/components/NewsFeed';
 
 export default {
   name: 'home',
@@ -18,22 +17,9 @@ export default {
     return {
     };
   },
-  mounted() {
-  },
-  computed: {
-    ...mapGetters({
-      serverUrl: 'getBaseUrl',
-      apiSources: 'getSources',
-      sourceKeys: 'getSourceKeys',
-    }),
-    endpoint() {
-      return (src) => {
-        const apiSource = this.apiSources[src];
-        return `/sources${apiSource.endpoint}`;
-      };
-    },
-  },
-  methods: {
+  components: {
+    Sidebar,
+    NewsFeed,
   },
 };
 
