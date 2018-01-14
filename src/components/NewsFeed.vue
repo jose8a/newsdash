@@ -1,5 +1,5 @@
 <template>
-    <div id='newsfeed'>
+    <div id='newsfeed' class="content">
       <h2>News Feed</h2>
       <ul>
         <li v-for="item in latestNews" :id="item.sourceId" class="postItem" :class="item.source">

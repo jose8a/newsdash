@@ -1,1 +1,35 @@
+body {
+  background: rgba(20, 100, 100, 0.7);
+  width: 80%;
+  margin: 0 auto;
+}
 
+#app {
+  display: grid;
+  grid-template-columns: 2fr 3fr 3fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+              "topnav  topnav  topnav"
+              "home home home";
+}
+
+#home {
+  display: grid;
+  grid-template-columns: 2fr 3fr 3fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+              "sidebar content content";
+  grid-area: home;
+}
+
+.nav-header {
+  grid-area: topnav;
+}
+
+.nav-sources {
+  grid-area: sidebar;
+}
+
+.content {
+  grid-area: content;
+}

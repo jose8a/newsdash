@@ -1,5 +1,5 @@
 <template>
-    <div id='nav'>
+    <div id='nav' class="nav-header">
       <router-link to='/' tag="button">Home</router-link>
       <router-link to='/favorites' tag="button">Favorites</router-link>
       <router-link to='/genres/sports' tag="button">Genres</router-link>

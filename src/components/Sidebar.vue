@@ -1,5 +1,5 @@
 <template>
-    <div id='sidebar'>
+    <div id='sidebar' class="nav-sources">
       <h3>Sidebar</h3>
       <div v-for="sourceId in sourceKeys">
         <div @click="fetchNews(sourceId)" id="sourceId">
