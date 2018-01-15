@@ -1,7 +1,7 @@
 <template>
     <div id='sidebar' class="nav-sources">
-      <h3>Sidebar</h3>
-      <div v-for="sourceId in sourceKeys">
+      <h2>Sources</h2>
+      <div v-for="sourceId in sourceKeys" class="source-item">
         <div @click="fetchNews(sourceId)" id="sourceId">
           {{ apiSources[sourceId].title }}
         </div>
