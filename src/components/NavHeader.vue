@@ -1,9 +1,12 @@
 <template>
     <div id='nav' class="nav-header">
-      <router-link to='/' tag="button">Home</router-link>
-      <router-link to='/favorites' tag="button">Favorites</router-link>
-      <router-link to='/genres/sports' tag="button">Genres</router-link>
-      <router-link to='/sources/tech/fefront' tag="button">Sources</router-link>
+      <h1>News Dash</h1>
+      <div id="nav-bar">
+        <router-link to='/' tag="span" class="nav-bar-link">Home</router-link>
+        <router-link to='/favorites' tag="span" class="nav-bar-link">Favorites</router-link>
+        <router-link to='/genres/sports' tag="span" class="nav-bar-link">Genres</router-link>
+        <router-link to='/sources/tech/fefront' tag="span" class="nav-bar-link">Sources</router-link>
+      </div>
     </div>
 </template>
 
