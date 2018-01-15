@@ -1,20 +1,122 @@
+/*
+ * Palette URL: http://paletton.com/#uid=53s1p0kllll3UMecCtyu3d8Pi4W
+ * Page layout: positive design
+ *
+ * Mat. Design Recommends:
+ *
+ * ---- DARK TEXT ON LIGHT BACKGROUNDS:
+ *    Dark text (#000000)   |   Opacity
+ * ------------------------------------
+ * Primary text             |   87%
+ * Secondary text           |   54%
+ * Disabled text, hint text |   38%
+ * Dividers                 |   12%
+ *
+ *
+ * ---- WHITE TEXT ON DARK BACKGROUNDS:
+ *    Light text (#FFFFFF)  |   Opacity
+ * ------------------------------------
+ * Primary text             |   100%
+ * Secondary text           |   70%
+ * Disabled text, hint text |   50%
+ * Dividers                 |   12%
+ *
+ *
+ * ---- ICONS
+ *
+ *    Dark icons (#000000)  | Opacity
+ * ------------------------------------
+ * Active Icon              | 54%
+ * Inactive Icon            | 38%
+ *
+ *
+ *    Light icons (#FFFFFF) |   Opacity
+ * ------------------------------------
+ * Active Icon              | 100%
+ * Inactive Icon            | 50%
+ *
+ */
+
+:root {
+  --color-primary-0: rgba( 39,  85, 108, 1);	/* BLUE SHADES: Main Primary color */
+  --color-primary-1: rgba(187, 204, 212, 1);
+  --color-primary-2: rgba( 93, 131, 149, 1);
+  --color-primary-3: rgba(  7,  47,  66, 1);
+  --color-primary-4: rgba(  0,  17,  25, 1);
+
+  --color-secondary-1-0: rgba(101,  39, 112, 1);	/* PURPLE SHADES: Main Secondary color (1) */
+  --color-secondary-1-1: rgba(211, 189, 215, 1);
+  --color-secondary-1-2: rgba(146,  95, 155, 1);
+  --color-secondary-1-3: rgba( 59,   6,  69, 1);
+  --color-secondary-1-4: rgba( 22,   0,  26, 1);
+
+  --color-secondary-2-0: rgba(151, 166,  55, 1);	/* YELLOWISH SHADES: Main Secondary color (2) */
+  --color-secondary-2-1: rgba(248, 252, 221, 1);
+  --color-secondary-2-2: rgba(218, 229, 139, 1);
+  --color-secondary-2-3: rgba( 90, 102,   6, 1);
+  --color-secondary-2-4: rgba( 33,  38,   0, 1);
+
+  --color-mdl-grey-100: rgba(245, 245, 245, 1); /* #F5F5F5 --> 245 */
+  --color-mdl-grey-300: rgba(224, 224, 224, 1); /* #E0E0E0; --> 224 */
+  --color-mdl-grey-500: rgba(158, 158, 158, 1); /* #9E9E9E; --> 158 */
+  --color-mdl-grey-700: rgba( 97,  97,  97, 1); /* #616161; -->  97 */
+  --color-mdl-grey-900: rgba( 33,  33,  33, 1); /* #212121; -->  33 */
+
+
+  --color-navs: var(--color-primary-0);
+  --color-nav-bar: var(--color-secondary-2-1);
+  --color-sidebar-bg: var(--color-mdl-grey-500);
+  --color-content: var(--color-mdl-grey-300);
+  --color-banner-text: var(--color-primary-2);
+  --color-cold-links: var(--color-secondary-3);
+}
+
+html,
+body,
+div,
+span,
+p,
+ul,
+li,
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+}
+
 body {
-  background: rgba(20, 100, 100, 0.7);
+  /* background-color: rgba(20, 100, 100, 0.7); */
+  background-color: var(--color-content);
   width: 80%;
   margin: 0 auto;
 }
 
 #app {
+  width: 100%;
+  /*
   display: grid;
+  grid-gap: 2rem;
   grid-template-columns: 2fr 3fr 3fr;
   grid-template-rows: auto;
   grid-template-areas:
               "topnav  topnav  topnav"
               "home home home";
+  */
 }
 
 #home {
   display: grid;
+  grid-gap: 2rem;
   grid-template-columns: 2fr 3fr 3fr;
   grid-template-rows: auto;
   grid-template-areas:
@@ -23,7 +125,40 @@ body {
 }
 
 .nav-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 15vh;
+  background-color: var(--color-navs);
   grid-area: topnav;
+}
+
+.nav-header h1 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  color: rgba(255, 255, 255, 0.54);
+  font-size: 4rem;
+  text-align: right;
+}
+
+#nav-bar {
+  height: 33%;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  border-bottom: 1px var(--color-navs) solid;
+}
+
+.nav-bar-link {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin: 0;
+  padding: 0;
+  padding-left: 1rem;
+  font-size: 1.5rem;
+  text-align: left;
+  background-color: var(--color-nav-bar);
 }
 
 .nav-sources {
@@ -31,5 +166,79 @@ body {
 }
 
 .content {
+  padding-top: 2rem;
+  padding-right: 1rem;
   grid-area: content;
+  display: flex;
+  flex-direction: column;
+}
+
+#sidebar h2,
+.content h2 {
+  padding-bottom: 2rem;
+}
+
+.source-item {
+  height: 2.5rem;
+  font-size: 1.25rem;
+}
+
+#sidebar {
+  padding-top: 2rem;
+  padding-left: 1rem;
+  background-color: var(--color-sidebar-bg);
+}
+
+.postItem {
+  width: 100%;
+  padding: 0.5rem 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+              "phost . pdate"
+              "purl purl purl";
+}
+
+.postItem {
+  border-top: 1px rgba(50, 50, 50, 0.3) solid;
+}
+
+.post-url {
+  grid-area: purl;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 1.25rem;
+  line-height: 1.5rem;
+}
+
+.post-host {
+  grid-area: phost;
+}
+
+.post-date {
+  grid-area: pdate;
+  text-align: right;
+}
+
+.post-host,
+.post-date {
+  font-size: 0.7rem;
+}
+
+.post-category {
+  grid-area: pcat;
+}
+
+a {
+  color: var(--color-cold-links);
+}
+
+#nav-footer {
+  padding-top: 1rem;
+  padding-left: 1rem;
+  height: 10vh;
+  background-color: var(--color-nav-bar);
+  color: var(--color-navs);
+  border-top: 2px var(--color-navs) solid;
 }
