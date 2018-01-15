@@ -1,12 +1,12 @@
 <template>
     <div id='newsfeed' class="content">
       <h2>News Feed</h2>
-      <ul>
-        <li v-for="item in latestNews" :id="item.sourceId" class="postItem" :class="item.source">
-          <p><a :href="item.url">{{ item.title }}</a></p>
-          <p class=""> {{ postHost(item.url) }}</p>
-        </li>
-      </ul>
+        <div v-for="item in latestNews" :id="item.sourceId" class="postItem" :class="item.source">
+          <p class="post-url"><a :href="item.url">{{ item.title }}</a></p>
+          <p class="post-host"> {{ postHost(item.url) }}</p>
+          <p class="post-date"> {{ item.fetchDate }}</p>
+          <!-- p class="post-category"> {{ postType }}</p -->
+        </div>
     </div><!-- end:#newsfeed -->
 </template>
 
@@ -26,18 +26,17 @@ export default {
   },
   mounted() {
   },
-  computed: mapGetters({
-    serverUrl: 'getBaseUrl',
-    apiSources: 'getSources',
-    sourceKeys: 'getSourceKeys',
-    latestNews: 'getLatestFetchedNews',
-  }),
+  computed: {
+    ...mapGetters({
+      serverUrl: 'getBaseUrl',
+      apiSources: 'getSources',
+      sourceKeys: 'getSourceKeys',
+      latestNews: 'getLatestFetchedNews',
+    }),
+  },
   methods: {
     postHost(url) {
       return url.split('/')[2];
-    },
-    news() {
-      return this.newsItems;
     },
   },
 };
