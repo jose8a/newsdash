@@ -20,12 +20,10 @@ export default new Vuex.Store({
       'sports',
     ],
 
-    currentNews: {
-      id: '',
-      data: [],
-    },
-
-    items: {
+    dataStores: {
+      newest: {
+        data: [],
+      },
       favorites: {},
       bydate: {},
       all: {},
@@ -125,15 +123,39 @@ export default new Vuex.Store({
       return Object.keys(state.newsSources);
     },
     getLatestFetchedNews(state) {
-      return state.currentNews.data;
+      // --- return state.currentNews.data;
+      return state.dataStores.newest.data;
     },
   },
 
   // define the possible mutations that can be applied to our state
   mutations: {
     getNews(state, payload) {
-      state.currentNews.data = payload.data;
-      state.currentNews.id = payload.id;
+      const tempData = payload.data;
+      const allItems = state.dataStores.all;
+      const newItems = state.dataStores.newest;
+      // --- const bydateItems = state.dataStores.bydate;
+
+      // clear the newItems dataStore on each news fetch
+      newItems.data = [];
+
+      // check each fetched item (by ID) if it has already been fetch
+      // if not previously-fetched -- add to 'newItems',
+      // if not previously-fetched -- add to 'allItems',
+      // if not previously-fetched -- add to 'bydateItems'
+      tempData.forEach((newsItem) => {
+        if (newsItem.sourceId in allItems) {
+          console.log(`ALREADY FETCHED (NOT SAVED): ${newsItem.sourceId}`);
+          return;
+        }
+
+        newItems.data.push(newsItem);
+        allItems[newsItem.sourceId] = newsItem;
+      });
+
+      // newItems.data = [...payload.data];
+      // --- state.currentNews.data = payload.data;
+      // --- state.currentNews.id = payload.id;
     },
   },
 
