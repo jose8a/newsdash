@@ -9,6 +9,12 @@ Vue.config.productionTip = false;
 
 const store = appStore;
 
+// save the store's state to localStorage on every
+// store update
+store.subscribe((mutation, state) => {
+  localStorage.setItem('appStore', JSON.stringify(state));
+});
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
@@ -16,4 +22,7 @@ new Vue({
   store,
   template: '<App/>',
   components: { App },
+  beforeCreate() {
+    this.$store.commit('initAppStore');
+  },
 });

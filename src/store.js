@@ -130,6 +130,13 @@ export default new Vuex.Store({
 
   // define the possible mutations that can be applied to our state
   mutations: {
+    initAppStore(state) {
+      // this mutation initializes the store's state from localStorage only
+      // IF a backup of the store exists in localStorage
+      if (localStorage.getItem('appStore')) {
+        this.replaceState(Object.assign(state, JSON.parse(localStorage.getItem('appStore'))));
+      }
+    },
     getNews(state, payload) {
       const tempData = payload.data;
       const allItems = state.dataStores.all;
@@ -145,17 +152,13 @@ export default new Vuex.Store({
       // if not previously-fetched -- add to 'bydateItems'
       tempData.forEach((newsItem) => {
         if (newsItem.sourceId in allItems) {
-          console.log(`ALREADY FETCHED (NOT SAVED): ${newsItem.sourceId}`);
+          console.log(`EXISTS (DON'T SAVE): ${newsItem.sourceId}`);
           return;
         }
 
         newItems.data.push(newsItem);
         allItems[newsItem.sourceId] = newsItem;
       });
-
-      // newItems.data = [...payload.data];
-      // --- state.currentNews.data = payload.data;
-      // --- state.currentNews.id = payload.id;
     },
   },
 
