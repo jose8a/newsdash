@@ -109,19 +109,19 @@ body {
   grid-template-columns: 2fr 3fr 3fr;
   grid-template-rows: auto;
   grid-template-areas:
-              "topnav  topnav  topnav"
-              "home home home";
+              "topnav   topnav  topnav"
+              "main     main    main";
   */
 }
 
-#home {
+#latest {
   display: grid;
   grid-gap: 2rem;
   grid-template-columns: 2fr 3fr 3fr;
   grid-template-rows: auto;
   grid-template-areas:
               "sidebar content content";
-  grid-area: home;
+  grid-area: main;
 }
 
 .nav-header {

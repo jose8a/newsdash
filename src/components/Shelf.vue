@@ -1,5 +1,5 @@
 <template>
-    <div id='fave-news'>
+    <div id='shelf'>
       <h2>Saved News Items</h2>
     </div><!-- end:#timeline -->
 </template>
@@ -9,7 +9,7 @@
 /* eslint-disable object-shorthand */
 
 export default {
-  name: 'favorites',
+  name: 'shelf',
   data() {
     return {
     };

@@ -1,8 +1,15 @@
 <template>
     <div id='sidebar' class="nav-sources">
+      <h2>Categories</h2>
+      <div v-for="listname in sourceLists"
+          @click="fetchNewsCollection(listname)"
+          id="listname"
+          class="source-item">
+        {{ listname.toUpperCase() }}
+      </div>
       <h2>Sources</h2>
       <div v-for="sourceId in sourceKeys" class="source-item">
-        <div @click="fetchNews(sourceId)" id="sourceId">
+        <div @click="fetchNewsSite(sourceId)" id="sourceId">
           {{ apiSources[sourceId].title }}
         </div>
       </div>
@@ -29,6 +36,7 @@ export default {
       serverUrl: 'getBaseUrl',
       apiSources: 'getSources',
       sourceKeys: 'getSourceKeys',
+      sourceLists: 'getSourceCollections',
       latestNews: 'getLatestFetchedNews',
     }),
     endpoint() {
@@ -39,8 +47,11 @@ export default {
     },
   },
   methods: {
-    fetchNews(id) {
-      this.$store.dispatch('fetchNews', id);
+    fetchNewsSite(id) {
+      this.$store.dispatch('fetchNewsSite', id);
+    },
+    fetchNewsCollection(listname) {
+      this.$store.dispatch('fetchNewsCollection', listname);
     },
   },
 };

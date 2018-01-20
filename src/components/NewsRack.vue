@@ -1,5 +1,5 @@
 <template>
-    <div id='home'>
+    <div id='latest'>
       <sidebar></sidebar>
       <news-feed></news-feed>
     </div>
@@ -12,7 +12,7 @@ import Sidebar from '@/components/Sidebar';
 import NewsFeed from '@/components/NewsFeed';
 
 export default {
-  name: 'home',
+  name: 'latest',
   data() {
     return {
     };

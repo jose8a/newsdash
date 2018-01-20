@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import HomeBase from '@/components/HomeBase';
-import Favorites from '@/components/Favorites';
-import NewsGenres from '@/components/NewsGenres';
-import NewsSources from '@/components/NewsSources';
+import NewsRack from '@/components/NewsRack';
+import Shelf from '@/components/Shelf';
+import Archives from '@/components/Archives';
+import MyPaper from '@/components/MyPaper';
 import NotFoundComponent from '@/components/NotFound';
 
 Vue.use(Router);
@@ -13,23 +13,23 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeBase,
+      name: 'latest',
+      component: NewsRack,
     },
     {
-      path: '/genres/:genre',
-      name: 'genres',
-      component: NewsGenres,
+      path: '/paper',
+      name: 'paper',
+      component: MyPaper,
     },
     {
-      path: '/sources/:type/:source',
-      name: 'sources',
-      component: NewsSources,
+      path: '/shelf',
+      name: 'shelf',
+      component: Shelf,
     },
     {
-      path: '/favorites',
-      name: 'favorites',
-      component: Favorites,
+      path: '/archives',
+      name: 'archives',
+      component: Archives,
     },
     { path: '*',
       component: NotFoundComponent,
