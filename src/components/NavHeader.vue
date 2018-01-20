@@ -2,10 +2,10 @@
     <div id='nav' class="nav-header">
       <h1>News Dash</h1>
       <div id="nav-bar">
-        <router-link to='/' tag="span" class="nav-bar-link">Home</router-link>
-        <router-link to='/favorites' tag="span" class="nav-bar-link">Favorites</router-link>
-        <router-link to='/genres/sports' tag="span" class="nav-bar-link">Genres</router-link>
-        <router-link to='/sources/tech/fefront' tag="span" class="nav-bar-link">Sources</router-link>
+        <router-link to='/' tag="span" class="nav-bar-link">NewsRack</router-link>
+        <router-link to='/reader' tag="span" class="nav-bar-link">Reader</router-link>
+        <router-link to='/shelf' tag="span" class="nav-bar-link">Shelf</router-link>
+        <router-link to='/archives' tag="span" class="nav-bar-link">Archives</router-link>
       </div>
     </div>
 </template>
