@@ -1,5 +1,5 @@
 <template>
-    <div id='news-sources'>
+    <div id='reader'>
       <h2>News Sources</h2>
       <ul>
         <li v-for="item in newsItems" :id="item.sourceId" class="postItem" :class="item.source">
@@ -18,7 +18,7 @@ import axios from 'axios';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'sources',
+  name: 'reader',
   data() {
     return {
       server: null,
