@@ -16,8 +16,8 @@ export default new Vuex.Store({
     sourceCollections: [
       'motley',
       'tech',
-      'vue',
       'sports',
+      'vue',
     ],
 
     dataStores: {
@@ -149,7 +149,7 @@ export default new Vuex.Store({
       // check each fetched item (by ID) if it has already been fetch
       // if not previously-fetched -- add to 'newItems',
       // if not previously-fetched -- add to 'allItems',
-      // if not previously-fetched -- add to 'bydateItems'
+      // TODO: if not previously-fetched -- add to 'bydateItems'
       tempData.forEach((newsItem) => {
         if (newsItem.sourceId in allItems) {
           console.log(`EXISTS (DON'T SAVE): ${newsItem.sourceId}`);
@@ -160,12 +160,16 @@ export default new Vuex.Store({
         allItems[newsItem.sourceId] = newsItem;
       });
     },
+    fakeGetNews(state, payload) {
+      console.log(`FAKE GET: ${payload.id}`);
+    },
   },
 
   actions: {
-    fetchNews(context, sourceId) {
+    fetchNewsSite(context, sourceId) {
       const state = context.state;
       const newsUrl = state.newsSources[sourceId].endpoint;
+      console.log(`GETTING URL: ${newsUrl}`);
 
       const server = axios.create({
         baseURL: state.baseServerUrl,
@@ -176,6 +180,26 @@ export default new Vuex.Store({
         .then((resp) => {
           console.log(`AXIOS RESP: ${resp.data}`);
           context.commit('getNews', { data: resp.data, id: sourceId });
+        })
+        .catch((err) => {
+          // TODO: error ACTION to display error banner
+          console.log(`AXIOS ERR: ${err}`);
+        });
+    },
+    fetchNewsCollection(context, listName) {
+      const state = context.state;
+      const newsUrl = `/${listName}`;
+      console.log(`GETTING URL: /${listName}`);
+
+      const server = axios.create({
+        baseURL: state.baseServerUrl,
+        responseType: 'json',
+      });
+
+      server.get(newsUrl)
+        .then((resp) => {
+          console.log(`AXIOS RESP: ${resp.data}`);
+          context.commit('getNews', { data: resp.data, id: listName });
         })
         .catch((err) => {
           // TODO: error ACTION to display error banner
