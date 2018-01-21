@@ -1,12 +1,17 @@
 <template>
     <div id='newsfeed' class="content">
-      <h2>News Feed</h2>
-        <div v-for="item in latestNews" :id="item.sourceId" class="postItem" :class="item.source">
-          <p class="post-url"><a :href="item.url">{{ item.title }}</a></p>
-          <p class="post-host"> {{ postHost(item.url) }}</p>
-          <p class="post-date"> {{ item.fetchDate }}</p>
-          <!-- p class="post-category"> {{ postType }}</p -->
-        </div>
+      <div id="feed-info">
+        <h2>
+          <span>{{ activeFeed }} Feed: </span>
+          <span>{{ latestNews.length }} New Items</span>
+        </h2>
+      </div>
+      <div v-for="item in latestNews" :id="item.sourceId" class="postItem" :class="item.source">
+        <p class="post-url"><a :href="item.url">{{ item.title }}</a></p>
+        <p class="post-host"> {{ postHost(item.url) }}</p>
+        <p class="post-date"> {{ item.fetchDate }}</p>
+        <!-- p class="post-category"> {{ postType }}</p -->
+      </div>
     </div><!-- end:#newsfeed -->
 </template>
 
@@ -33,6 +38,9 @@ export default {
       sourceKeys: 'getSourceKeys',
       latestNews: 'getLatestFetchedNews',
     }),
+    activeFeed() {
+      return this.$store.state.activeNav.activeFeed;
+    },
   },
   methods: {
     postHost(url) {

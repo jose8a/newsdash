@@ -13,16 +13,29 @@ export default new Vuex.Store({
 
     activeNav: {
       sideActive: '',
+      activeFeed: '',
     },
 
     baseServerUrl: "http://localhost:3500",
 
-    sourceCollections: [
-      'motley',
-      'tech',
-      'sports',
-      'vue',
-    ],
+    sourceCollections: {
+      motley: {
+        id: 'motley',
+        title: 'Motley',
+      },
+      tech: {
+        id: 'tech',
+        title: 'Tech',
+      },
+      sports: {
+        id: 'tech',
+        title: 'Sports',
+      },
+      vue: {
+        id: 'vue',
+        title: 'Vue',
+      },
+    },
 
     dataStores: {
       newest: {
@@ -120,6 +133,9 @@ export default new Vuex.Store({
     getSourceCollections(state) {
       return state.sourceCollections;
     },
+    getCollectionsKeys(state) {
+      return Object.keys(state.sourceCollections);
+    },
     getSources(state) {
       return state.newsSources;
     },
@@ -127,7 +143,6 @@ export default new Vuex.Store({
       return Object.keys(state.newsSources);
     },
     getLatestFetchedNews(state) {
-      // --- return state.currentNews.data;
       return state.dataStores.newest.data;
     },
   },

@@ -1,11 +1,11 @@
 <template>
     <div id='sidebar' class="nav-sources">
       <h2>Categories</h2>
-      <div v-for="listname in sourceLists"
-          @click="fetchNewsCollection(listname)"
-          id="listname"
-          class="source-item" :class="activeClass(listname)">
-        {{ listname.toUpperCase() }}
+      <div v-for="listId in listsKeys"
+          @click="fetchNewsCollection(listId)"
+          :id="listId"
+          class="source-item" :class="activeClass(listId)">
+        {{ listsInfo[listId].title }}
       </div>
       <h2>Sources</h2>
       <div v-for="sourceId in sourceKeys" @click="fetchNewsSite(sourceId)"
@@ -35,8 +35,9 @@ export default {
       serverUrl: 'getBaseUrl',
       apiSources: 'getSources',
       sourceKeys: 'getSourceKeys',
-      sourceLists: 'getSourceCollections',
       latestNews: 'getLatestFetchedNews',
+      listsKeys: 'getCollectionsKeys',
+      listsInfo: 'getSourceCollections',
     }),
     endpoint() {
       return (src) => {
@@ -47,12 +48,14 @@ export default {
   },
   methods: {
     fetchNewsSite(id) {
+      this.$store.state.activeNav.activeFeed = this.apiSources[id].title;
       this.$store.state.activeNav.sideActive = id;
       this.$store.dispatch('fetchNewsSite', id);
     },
-    fetchNewsCollection(listname) {
-      this.$store.state.activeNav.sideActive = listname;
-      this.$store.dispatch('fetchNewsCollection', listname);
+    fetchNewsCollection(listKey) {
+      this.$store.state.activeNav.activeFeed = this.listsInfo[listKey].title;
+      this.$store.state.activeNav.sideActive = listKey;
+      this.$store.dispatch('fetchNewsCollection', listKey);
     },
     activeClass(id) {
       const activeItem = this.$store.state.activeNav.sideActive;
