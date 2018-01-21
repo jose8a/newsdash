@@ -4,6 +4,10 @@
     <p class="post-host"> {{ postHost(newsbit.url) }}</p>
     <p class="post-date"> {{ newsbit.fetchDate }}</p>
     <!-- p class="post-category"> {{ postType }}</p -->
+    <p class="post-actions">
+      <a href=""><i class="fa fa-star-o"></i></a>
+      <a href=""><i class="fa fa-bookmark-o"></i></a>
+    </p>
   </div>
 </template>
 

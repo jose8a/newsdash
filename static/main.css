@@ -213,11 +213,11 @@ body {
   width: 100%;
   padding: 0.5rem 0;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: auto;
   grid-template-areas:
-              "phost . pdate"
-              "purl purl purl";
+              "purl   purl  purl  purl  pactions"
+              "phost  phost .     .     pdate";
 }
 
 .postItem {
@@ -226,10 +226,6 @@ body {
 
 .post-url {
   grid-area: purl;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  font-size: 1.25rem;
-  line-height: 1.5rem;
 }
 
 .post-host {
@@ -244,6 +240,23 @@ body {
 .post-host,
 .post-date {
   font-size: 0.7rem;
+}
+
+.post-actions {
+  grid-area: pactions;
+  text-align: right;
+}
+
+.post-actions,
+.post-url {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 1.25rem;
+  line-height: 1.5rem;
+}
+
+.post-actions .fa {
+  padding-left: 1rem;
 }
 
 .post-category {
