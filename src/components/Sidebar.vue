@@ -4,14 +4,13 @@
       <div v-for="listname in sourceLists"
           @click="fetchNewsCollection(listname)"
           id="listname"
-          class="source-item">
+          class="source-item" :class="activeClass(listname)">
         {{ listname.toUpperCase() }}
       </div>
       <h2>Sources</h2>
-      <div v-for="sourceId in sourceKeys" class="source-item">
-        <div @click="fetchNewsSite(sourceId)" id="sourceId">
+      <div v-for="sourceId in sourceKeys" @click="fetchNewsSite(sourceId)"
+        :id="sourceId" class="source-item" :class="activeClass(sourceId)">
           {{ apiSources[sourceId].title }}
-        </div>
       </div>
     </div>
 </template>
@@ -48,10 +47,19 @@ export default {
   },
   methods: {
     fetchNewsSite(id) {
+      this.$store.state.activeNav.sideActive = id;
       this.$store.dispatch('fetchNewsSite', id);
     },
     fetchNewsCollection(listname) {
+      this.$store.state.activeNav.sideActive = listname;
       this.$store.dispatch('fetchNewsCollection', listname);
+    },
+    activeClass(id) {
+      const activeItem = this.$store.state.activeNav.sideActive;
+      if (id === activeItem) {
+        return 'active';
+      }
+      return '';
     },
   },
 };

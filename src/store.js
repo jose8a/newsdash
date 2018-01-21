@@ -11,6 +11,10 @@ export default new Vuex.Store({
 // the root, initial state object
   state: {
 
+    activeNav: {
+      sideActive: '',
+    },
+
     baseServerUrl: "http://localhost:3500",
 
     sourceCollections: [
