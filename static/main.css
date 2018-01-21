@@ -67,8 +67,11 @@
   --color-nav-bar: var(--color-secondary-2-1);
   --color-sidebar-bg: var(--color-mdl-grey-500);
   --color-content: var(--color-mdl-grey-300);
+  --color-page-bg: var(--color-mdl-grey-100);
   --color-banner-text: var(--color-primary-2);
-  --color-cold-links: var(--color-secondary-3);
+  --color-cold-links: var(--color-primary-3);
+  --color-active-links: var(--color-secondary-2-2);
+  --color-active-nav: var(--color-mdl-grey-900);
 }
 
 html,
@@ -95,23 +98,14 @@ html {
 }
 
 body {
-  /* background-color: rgba(20, 100, 100, 0.7); */
-  background-color: var(--color-content);
+  background-color: var(--color-page-bg);
   width: 80%;
   margin: 0 auto;
 }
 
 #app {
   width: 100%;
-  /*
-  display: grid;
-  grid-gap: 2rem;
-  grid-template-columns: 2fr 3fr 3fr;
-  grid-template-rows: auto;
-  grid-template-areas:
-              "topnav   topnav  topnav"
-              "main     main    main";
-  */
+  background-color: var(--color-content);
 }
 
 #latest {
@@ -161,11 +155,20 @@ body {
   background-color: var(--color-nav-bar);
 }
 
+.nav-bar-link.router-link-exact-active {
+  padding-top: 0.5rem;
+  padding-left: 1.5rem;
+  background-color: var(--color-active-nav);
+  color: var(--color-active-links);
+  opacity: 0.75;
+}
+
 .nav-sources {
   grid-area: sidebar;
 }
 
 .content {
+  background-color: var(--color-content);
   padding-top: 2rem;
   padding-right: 1rem;
   grid-area: content;
@@ -181,6 +184,20 @@ body {
 .source-item {
   height: 2.5rem;
   font-size: 1.25rem;
+}
+
+.source-item.active,
+.source-item:hover {
+  padding-top: 0.5rem;
+  padding-left: 0.5rem;
+  background-color: var(--color-active-nav);
+  color: var(--color-active-links);
+  opacity: 0.75;
+  /* transform: translate(1rem); */
+}
+
+.source-item.active {
+  padding-left: 1.5rem;
 }
 
 #sidebar {
