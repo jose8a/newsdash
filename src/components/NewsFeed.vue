@@ -6,6 +6,11 @@
           <span>{{ latestNews.length }} New Items</span>
         </h2>
       </div>
+
+      <div v-if="nilNewItems" class="postItem flash-warn">
+        <p class="post-url">Zero new items retrieved.</p>
+      </div>
+
       <div v-for="item in latestNews" :id="item.sourceId" class="postItem" :class="item.source">
         <p class="post-url"><a :href="item.url">{{ item.title }}</a></p>
         <p class="post-host"> {{ postHost(item.url) }}</p>
@@ -40,6 +45,9 @@ export default {
     }),
     activeFeed() {
       return this.$store.state.activeNav.activeFeed;
+    },
+    nilNewItems() {
+      return this.latestNews.length === 0;
     },
   },
   methods: {
