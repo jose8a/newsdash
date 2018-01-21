@@ -175,6 +175,8 @@ export default new Vuex.Store({
           return;
         }
 
+        newsItem.favorited = false;
+        newsItem.bookmarked = false;
         newItems.data.push(newsItem);
         allItems[newsItem.sourceId] = newsItem;
       });
