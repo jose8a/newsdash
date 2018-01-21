@@ -288,6 +288,9 @@ a {
 }
 
 #nav-footer {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
   padding-top: 1rem;
   padding-left: 1rem;
   height: 10vh;
