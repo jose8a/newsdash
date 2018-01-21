@@ -11,12 +11,7 @@
         <p class="post-url">Zero new items retrieved.</p>
       </div>
 
-      <div v-for="item in latestNews" :id="item.sourceId" class="postItem" :class="item.source">
-        <p class="post-url"><a :href="item.url">{{ item.title }}</a></p>
-        <p class="post-host"> {{ postHost(item.url) }}</p>
-        <p class="post-date"> {{ item.fetchDate }}</p>
-        <!-- p class="post-category"> {{ postType }}</p -->
-      </div>
+      <news-item v-for="item in latestNews" :newsbit="item" :key="item.sourceId"></news-item>
     </div><!-- end:#newsfeed -->
 </template>
 
@@ -25,16 +20,12 @@
 /* eslint-disable object-shorthand */
 
 import { mapGetters } from 'vuex';
+import NewsItem from '@/components/NewsItem';
 
 export default {
   name: 'newsfeed',
-  data() {
-    return {
-      server: null,
-      newsItems: [],
-    };
-  },
-  mounted() {
+  components: {
+    NewsItem,
   },
   computed: {
     ...mapGetters({
@@ -48,11 +39,6 @@ export default {
     },
     nilNewItems() {
       return this.latestNews.length === 0;
-    },
-  },
-  methods: {
-    postHost(url) {
-      return url.split('/')[2];
     },
   },
 };
