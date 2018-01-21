@@ -127,19 +127,37 @@ body {
   justify-content: space-between;
   height: 15vh;
   background-color: var(--color-navs);
-  grid-area: topnav;
 }
 
-.nav-header h1 {
+#branding {
+  height: 70%;
+  display: flex;
+  justify-content: space-between;
+}
+
+#branding h1 {
   padding-left: 1rem;
-  padding-right: 1rem;
-  color: rgba(255, 255, 255, 0.54);
-  font-size: 4rem;
+  padding-right: 2rem;
+  font-family: 'Impact', sans-serif;
+  font-size: 5rem;
+  font-style: italic;
   text-align: right;
 }
 
+#branding h1,
+#branding .fa-newspaper-o {
+  padding-left: 1rem;
+  color: rgba(255, 255, 255, 0.54);
+}
+
+#branding .fa-newspaper-o {
+  padding-top: 0.5rem;
+  padding-left: 3rem;
+  transform: rotateZ(15deg);
+}
+
 #nav-bar {
-  height: 33%;
+  height: 30%;
   padding: 0;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -154,6 +172,7 @@ body {
   padding: 0;
   padding-left: 1rem;
   font-size: 1.5rem;
+  font: bold;
   text-align: left;
   background-color: var(--color-nav-bar);
 }
@@ -257,6 +276,7 @@ body {
 
 .post-actions .fa {
   padding-left: 1rem;
+  color: var(--color-nav-links);
 }
 
 .post-category {
