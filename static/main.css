@@ -175,6 +175,7 @@ body {
   font: bold;
   text-align: left;
   background-color: var(--color-nav-bar);
+  border-top: 1px var(--color-navs) solid;
 }
 
 .nav-bar-link.router-link-exact-active {
@@ -183,6 +184,10 @@ body {
   background-color: var(--color-active-nav);
   color: var(--color-active-links);
   opacity: 0.75;
+}
+
+.nav-bar-link:not(:last-child) {
+  border-right: 1px var(--color-navs) solid;
 }
 
 .nav-sources {
@@ -277,6 +282,12 @@ body {
 .post-actions .fa {
   padding-left: 1rem;
   color: var(--color-nav-links);
+}
+
+.source-item:hover,
+.nav-bar-link:hover,
+.post-actions .fa:hover {
+  cursor: pointer;
 }
 
 .post-category {
