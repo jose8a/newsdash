@@ -42,6 +42,7 @@ export default new Vuex.Store({
         data: [],
       },
       favorites: {},
+      bookmarks: {},
       bydate: {},
       all: {},
     },
@@ -184,6 +185,48 @@ export default new Vuex.Store({
     fakeGetNews(state, payload) {
       console.log(`FAKE GET: ${payload.id}`);
     },
+    updateFavorites(state, payload) {
+      const id = payload.id;
+      const favorites = state.dataStores.favorites;
+      const allItems = state.dataStores.all;
+
+      const newsItem = allItems[id];
+
+      // add/remove id to/from 'favorites' datastore
+      if (favorites[id]) {
+        // -- rm 'favorited' property on the newsItem in the 'allNews' collection
+        // -- delete the property, in 'favorites', then return
+        newsItem.favorited = false;
+        delete favorites[id];
+        return;
+      }
+
+      // -- else add the ID to favorites
+      // -- and, toggle 'favorited' property on the newsItem in the 'allNews' collection
+      favorites[id] = newsItem.fetchDate;
+      allItems[id].favorited = true;
+    },
+    updateBookmarks(state, payload) {
+      const id = payload.id;
+      const bookmarks = state.dataStores.bookmarks;
+      const allItems = state.dataStores.all;
+
+      const newsItem = allItems[id];
+
+      // add/remove id to/from 'bookmarks' datastore
+      if (bookmarks[id]) {
+        // -- rm 'favorited' property on the newsItem in the 'allNews' collection
+        // -- delete the property, in 'bookmarks', then return
+        newsItem.favorited = false;
+        delete bookmarks[id];
+        return;
+      }
+
+      // -- else add the ID to bookmarks
+      // -- and, toggle 'favorited' property on the newsItem in the 'allNews' collection
+      bookmarks[id] = newsItem.fetchDate;
+      allItems[id].favorited = true;
+    },
   },
 
   actions: {
@@ -226,6 +269,12 @@ export default new Vuex.Store({
           // TODO: error ACTION to display error banner
           console.log(`AXIOS ERR: ${err}`);
         });
+    },
+    toggleFavorite(context, id) {
+      context.commit('updateFavorites', { id });
+    },
+    toggleBookmark(context, id) {
+      context.commit('updateBookmarks', { id });
     },
   },
 });
