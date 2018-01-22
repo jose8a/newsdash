@@ -5,8 +5,8 @@
     <p class="post-date"> {{ newsbit.fetchDate }}</p>
     <!-- p class="post-category"> {{ postType }}</p -->
     <p class="post-actions">
-      <span @click="toggleFavorite"><i class="fa fa-star-o"></i></span>
-      <span @click="toggleBookmark"><i class="fa fa-bookmark-o"></i></span>
+      <span @click="toggleFavorite"><i class="fa" :class="isFavorite"></i></span>
+      <span @click="toggleBookmark"><i class="fa" :class="isBookmark"></i></span>
     </p>
   </div>
 </template>
@@ -21,6 +21,18 @@ export default {
   mounted() {
   },
   computed: {
+    isFavorite() {
+      if (this.newsbit.favorited) {
+        return 'fa-star';
+      }
+      return 'fa-star-o';
+    },
+    isBookmark() {
+      if (this.newsbit.bookmarked) {
+        return 'fa-bookmark';
+      }
+      return 'fa-bookmark-o';
+    },
   },
   methods: {
     postHost(url) {
