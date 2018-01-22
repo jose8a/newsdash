@@ -215,17 +215,17 @@ export default new Vuex.Store({
 
       // add/remove id to/from 'bookmarks' datastore
       if (bookmarks[id]) {
-        // -- rm 'favorited' property on the newsItem in the 'allNews' collection
+        // -- rm 'bookmarked' property on the newsItem in the 'allNews' collection
         // -- delete the property, in 'bookmarks', then return
-        newsItem.favorited = false;
+        newsItem.bookmarked = false;
         delete bookmarks[id];
         return;
       }
 
       // -- else add the ID to bookmarks
-      // -- and, toggle 'favorited' property on the newsItem in the 'allNews' collection
+      // -- and, toggle 'bookmarked' property on the newsItem in the 'allNews' collection
       bookmarks[id] = newsItem.fetchDate;
-      allItems[id].favorited = true;
+      allItems[id].bookmarked = true;
     },
   },
 
