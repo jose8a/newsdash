@@ -146,6 +146,22 @@ export default new Vuex.Store({
     getLatestFetchedNews(state) {
       return state.dataStores.newest.data;
     },
+    getFavorites(state) {
+      const faves = [];
+      const favorites = state.dataStores.favorites;
+      const allItems = state.dataStores.all;
+
+      const faveKeys = Object.keys(favorites);
+      faveKeys.forEach((id) => {
+        faves.push(allItems[id]);
+      });
+
+      return faves;
+    },
+    getNumFavorites(state) {
+      const faveKeys = Object.keys(state.dataStores.favorites);
+      return faveKeys.length;
+    },
   },
 
   // define the possible mutations that can be applied to our state
@@ -172,7 +188,7 @@ export default new Vuex.Store({
       // TODO: if not previously-fetched -- add to 'bydateItems'
       tempData.forEach((newsItem) => {
         if (newsItem.sourceId in allItems) {
-          console.log(`EXISTS (DON'T SAVE): ${newsItem.sourceId}`);
+          // --- console.log(`EXISTS (DON'T SAVE): ${newsItem.sourceId}`);
           return;
         }
 
@@ -181,9 +197,6 @@ export default new Vuex.Store({
         newItems.data.push(newsItem);
         allItems[newsItem.sourceId] = newsItem;
       });
-    },
-    fakeGetNews(state, payload) {
-      console.log(`FAKE GET: ${payload.id}`);
     },
     updateFavorites(state, payload) {
       const id = payload.id;
@@ -242,7 +255,7 @@ export default new Vuex.Store({
 
       server.get(newsUrl)
         .then((resp) => {
-          console.log(`AXIOS RESP: ${resp.data}`);
+          console.log(`AXIOS RESP - : ${resp.data.length} items.`);
           context.commit('getNews', { data: resp.data, id: sourceId });
         })
         .catch((err) => {
@@ -262,7 +275,7 @@ export default new Vuex.Store({
 
       server.get(newsUrl)
         .then((resp) => {
-          console.log(`AXIOS RESP: ${resp.data}`);
+          console.log(`AXIOS RESP - : ${resp.data.length} items.`);
           context.commit('getNews', { data: resp.data, id: listName });
         })
         .catch((err) => {
