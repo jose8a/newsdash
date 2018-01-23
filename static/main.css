@@ -72,7 +72,9 @@
   --color-banner-text: var(--color-primary-2);
   --color-cold-links: var(--color-primary-3);
   --color-active-links: var(--color-secondary-2-2);
+  --color-active-links--alt: var(--color-secondary-2-1);
   --color-active-nav: var(--color-mdl-grey-900);
+  --color-active-nav--alt: var(--color-primary-3);
   --color-flash-text: var(--color-warn-light);
   --color-flash-bg: var(--color-secondary-2-2);
 }
@@ -167,11 +169,11 @@ body {
 .nav-bar-link {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   margin: 0;
   padding: 0;
   padding-left: 1rem;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font: bold;
   text-align: left;
   background-color: var(--color-nav-bar);
@@ -188,6 +190,13 @@ body {
 
 .nav-bar-link:not(:last-child) {
   border-right: 1px var(--color-navs) solid;
+}
+
+.nav-bar-link:hover {
+  cursor: pointer;
+  background-color: var(--color-active-nav--alt);
+  color: var(--color-active-links--alt);
+  opacity: 0.55;
 }
 
 .nav-sources {
@@ -219,12 +228,20 @@ body {
   padding-left: 0.5rem;
   background-color: var(--color-active-nav);
   color: var(--color-active-links);
-  opacity: 0.75;
   /* transform: translate(1rem); */
 }
 
 .source-item.active {
   padding-left: 1.5rem;
+  opacity: 0.75;
+}
+
+.source-item:hover {
+  opacity: 0.5;
+}
+
+#shelf {
+  padding-left: 1rem;
 }
 
 #sidebar {
