@@ -28,7 +28,6 @@ export default {
     };
   },
   mounted() {
-    console.log(`${this.sourceKeys}`);
   },
   computed: {
     ...mapGetters({

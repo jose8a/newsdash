@@ -188,7 +188,6 @@ export default new Vuex.Store({
       // TODO: if not previously-fetched -- add to 'bydateItems'
       tempData.forEach((newsItem) => {
         if (newsItem.sourceId in allItems) {
-          // --- console.log(`EXISTS (DON'T SAVE): ${newsItem.sourceId}`);
           return;
         }
 
@@ -246,7 +245,6 @@ export default new Vuex.Store({
     fetchNewsSite(context, sourceId) {
       const state = context.state;
       const newsUrl = state.newsSources[sourceId].endpoint;
-      console.log(`GETTING URL: ${newsUrl}`);
 
       const server = axios.create({
         baseURL: state.baseServerUrl,
@@ -255,7 +253,6 @@ export default new Vuex.Store({
 
       server.get(newsUrl)
         .then((resp) => {
-          console.log(`AXIOS RESP - : ${resp.data.length} items.`);
           context.commit('getNews', { data: resp.data, id: sourceId });
         })
         .catch((err) => {
@@ -266,7 +263,6 @@ export default new Vuex.Store({
     fetchNewsCollection(context, listName) {
       const state = context.state;
       const newsUrl = `/${listName}`;
-      console.log(`GETTING URL: /${listName}`);
 
       const server = axios.create({
         baseURL: state.baseServerUrl,
@@ -275,7 +271,6 @@ export default new Vuex.Store({
 
       server.get(newsUrl)
         .then((resp) => {
-          console.log(`AXIOS RESP - : ${resp.data.length} items.`);
           context.commit('getNews', { data: resp.data, id: listName });
         })
         .catch((err) => {
