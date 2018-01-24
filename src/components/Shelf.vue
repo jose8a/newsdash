@@ -24,11 +24,6 @@ import NewsItem from '@/components/NewsItem';
 
 export default {
   name: 'shelf',
-  data() {
-    return {
-      localFaves: [],
-    };
-  },
   components: {
     NewsItem,
   },
