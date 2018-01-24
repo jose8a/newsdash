@@ -162,6 +162,22 @@ export default new Vuex.Store({
       const faveKeys = Object.keys(state.dataStores.favorites);
       return faveKeys.length;
     },
+    getBookmarks(state) {
+      const bookmarkItems = [];
+      const bookmarkIds = state.dataStores.bookmarks;
+      const allItems = state.dataStores.all;
+
+      const bmIds = Object.keys(bookmarkIds);
+      bmIds.forEach((id) => {
+        bookmarkItems.push(allItems[id]);
+      });
+
+      return bookmarkItems;
+    },
+    getNumBookmarks(state) {
+      const objKeys = Object.keys(state.dataStores.bookmarks);
+      return objKeys.length;
+    },
   },
 
   // define the possible mutations that can be applied to our state
@@ -209,13 +225,14 @@ export default new Vuex.Store({
         // -- rm 'favorited' property on the newsItem in the 'allNews' collection
         // -- delete the property, in 'favorites', then return
         newsItem.favorited = false;
-        delete favorites[id];
+        Vue.delete(favorites, id);
+
         return;
       }
 
       // -- else add the ID to favorites
       // -- and, toggle 'favorited' property on the newsItem in the 'allNews' collection
-      favorites[id] = newsItem.fetchDate;
+      Vue.set(favorites, id, newsItem.fetchDate);
       allItems[id].favorited = true;
     },
     updateBookmarks(state, payload) {
@@ -230,13 +247,14 @@ export default new Vuex.Store({
         // -- rm 'bookmarked' property on the newsItem in the 'allNews' collection
         // -- delete the property, in 'bookmarks', then return
         newsItem.bookmarked = false;
-        delete bookmarks[id];
+        Vue.delete(bookmarks, id);
+
         return;
       }
 
       // -- else add the ID to bookmarks
       // -- and, toggle 'bookmarked' property on the newsItem in the 'allNews' collection
-      bookmarks[id] = newsItem.fetchDate;
+      Vue.set(bookmarks, id, newsItem.fetchDate);
       allItems[id].bookmarked = true;
     },
   },

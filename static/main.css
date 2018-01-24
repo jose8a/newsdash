@@ -240,6 +240,7 @@ body {
   opacity: 0.5;
 }
 
+#readlist,
 #shelf {
   padding-left: 1rem;
 }
