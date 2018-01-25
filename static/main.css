@@ -68,6 +68,7 @@
   --color-nav-bar: var(--color-secondary-2-1);
   --color-sidebar-bg: var(--color-mdl-grey-500);
   --color-content: var(--color-mdl-grey-300);
+  --color-content--hover: var(--color-mdl-grey-500);
   --color-page-bg: var(--color-mdl-grey-100);
   --color-banner-text: var(--color-primary-2);
   --color-cold-links: var(--color-primary-3);
@@ -264,6 +265,10 @@ body {
 
 .postItem {
   border-top: 1px rgba(50, 50, 50, 0.3) solid;
+}
+
+.postItem:hover {
+  background-color: var(--color-content--hover);
 }
 
 .post-url {
