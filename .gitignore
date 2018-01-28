@@ -8,6 +8,10 @@ test/unit/coverage
 test/e2e/reports
 selenium-debug.log
 
+# environment var files
+.env
+*.env.json
+
 # Editor directories and files
 .idea
 *.suo
@@ -22,3 +26,6 @@ selenium-debug.log
 .notes.md
 .resources.md
 
+# backup copies
+**/**/*.bak
+**/**/*.bak.*
