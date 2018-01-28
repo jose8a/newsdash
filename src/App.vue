@@ -18,6 +18,10 @@ export default {
   },
   computed: {
   },
+  created() {
+    const userId = 'admin';
+    this.$store.dispatch('fetchFirebase', userId);
+  },
 };
 </script>
 

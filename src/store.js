@@ -5,6 +5,8 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
 
+import firebase from '@/firebase';
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -35,6 +37,10 @@ export default new Vuex.Store({
         id: 'vue',
         title: 'Vue',
       },
+    },
+
+    firebaseProps: {
+      userId: "admin",
     },
 
     dataStores: {
@@ -190,6 +196,12 @@ export default new Vuex.Store({
       }
     },
     getNews(state, payload) {
+      const userId = state.firebaseProps.userId;
+      const USERDATA = `/userData/${userId}`;
+      const ALLITEMS = `${USERDATA}/allItems`;
+      const dbAllItemsRef = firebase.database.ref(ALLITEMS);
+      const updateItems = {};
+
       const tempData = payload.data;
       const allItems = state.dataStores.all;
       const newItems = state.dataStores.newest;
@@ -210,8 +222,11 @@ export default new Vuex.Store({
         newsItem.favorited = false;
         newsItem.bookmarked = false;
         newItems.data.push(newsItem);
+        updateItems[newsItem.sourceId] = newsItem;
         allItems[newsItem.sourceId] = newsItem;
       });
+
+      dbAllItemsRef.update(updateItems);
     },
     updateFavorites(state, payload) {
       const id = payload.id;
@@ -236,30 +251,134 @@ export default new Vuex.Store({
       allItems[id].favorited = true;
     },
     updateBookmarks(state, payload) {
+      // 0 - SETUP
       const id = payload.id;
-      const bookmarks = state.dataStores.bookmarks;
-      const allItems = state.dataStores.all;
+      const userId = state.firebaseProps.userId;
+      const bmarks = state.dataStores.bookmarks;
+      // const firebaseRefs = state.firebaseRefs;
 
-      const newsItem = allItems[id];
+      console.log(`userId ==> ${userId}`);
+      const bookmarksRef = firebase.database.ref(`/userData/${userId}/bookmarks`);
+      // --- const favoritesRef = firebase.database.ref(`/userData/${userId}/favorites`);
+      const allItemsRef = firebase.database.ref(`/userData/${userId}/allItems`);
+      // --- const sourcesRef = firebase.database.ref(`/userData/${userId}/newsSources`);
+      // --- const collectionsRef = firebase.database.ref(`/userData/${userId}/sourceCollections`);
+      // --- const userDataRef = firebase.database.ref(`/userData/${userId}`);
 
-      // add/remove id to/from 'bookmarks' datastore
-      if (bookmarks[id]) {
-        // -- rm 'bookmarked' property on the newsItem in the 'allNews' collection
-        // -- delete the property, in 'bookmarks', then return
-        newsItem.bookmarked = false;
-        Vue.delete(bookmarks, id);
-
+      // 1 - IF already in local-bmarks, set removal from remote-bmarks
+      // 1a - set nextAllItemsBookmarked = false
+      if (bmarks[id]) {
+        console.log(`Unsetting bookmark -- ${id}`);
+        bookmarksRef.child(id).set(null);
+        allItemsRef.child(id).child('bookmarked').set('false');
         return;
       }
+      // 2 - IF not in local-bmarks, add to remote-bmarks
+      // 2a - set nextAllItemsBookmarked = true
+      // const newBookmarkRef = dbBookmarksRef.set({`${id}`: true});
+      bookmarksRef.child(id).set(true);
+      allItemsRef.child(id).child('bookmarked').set('true');
+      console.log(`Setting bookmark -- ${id}`);
+    },
+    updateLocalBookmarks(state, payload) {
+      // TODO:
+      console.log(payload);
+      console.log("Gotta update local bookmarks!!");
 
-      // -- else add the ID to bookmarks
-      // -- and, toggle 'bookmarked' property on the newsItem in the 'allNews' collection
-      Vue.set(bookmarks, id, newsItem.fetchDate);
-      allItems[id].bookmarked = true;
+      state.dataStores.bookmarks = payload;
+    },
+    updateLocalFavorites(state, payload) {
+      // TODO:
+      console.log(payload);
+    },
+    updateLocalAllItems(state, payload) {
+      // TODO:
+      console.log(payload);
+    },
+    createdRemoteBookmarks(state, payload) {
+      // TODO:
+      console.log(payload);
+    },
+    createdRemoteFavorites(state, payload) {
+      // TODO:
+      console.log(payload);
+    },
+    createdRemoteAllItems(state, payload) {
+      // TODO:
+      console.log(payload);
     },
   },
 
   actions: {
+    fetchFirebase(context, id) {
+      const USERDATA = `/userData/${id}`;
+      const FAVORITES = `${USERDATA}/favorites`;
+      const BOOKMARKS = `${USERDATA}/bookmarks`;
+      const ALLITEMS = `${USERDATA}/allItems`;
+
+      const dbUserDataRef = firebase.database.ref(USERDATA);
+      const dbBookmarksRef = firebase.database.ref(BOOKMARKS);
+      const dbFavoritesRef = firebase.database.ref(FAVORITES);
+      const dbAllItemsRef = firebase.database.ref(ALLITEMS);
+      // --- const dbSourcesRef = firebaseRefs.sources(id);
+      // --- const dbCollectionsRef = firebaseRefs.collections(id);
+
+      console.log(`Initial Firebase Sync for user: ${id}`);
+      dbBookmarksRef.once('value')
+        .then((snapshot) => {
+          if (snapshot.val() !== null) {
+            // TODO: write updateLocalBookmarks mutation
+            context.commit('updateLocalBookmarks', snapshot.val());
+            return;
+          }
+
+          // TODO: write createdRemoteBookmarks mutation
+          dbBookmarksRef.set(context.state.dataStores.bookmarks);
+          context.commit('createdRemoteBookmarks', 'Remote bookmarks: CREATED.');
+        });
+
+      dbFavoritesRef.once('value')
+        .then((snapshot) => {
+          if (snapshot.val() !== null) {
+            // TODO: write updateLocalFavorites mutation
+            context.commit('updateLocalFavorites', 'Remote favorites: FOUND.');
+            return;
+          }
+
+          // TODO: write createdRemoteFavorites mutation
+          // dbFavoritesRef.set({ favorites: context.state.dataStores.favorites });
+          dbUserDataRef.child('favorites').set({ favorites: context.state.dataStores.favorites });
+          context.commit('createdRemoteFavorites', 'Remote favorites: CREATED.');
+        });
+
+      dbAllItemsRef.once('value')
+        .then((snapshot) => {
+          if (snapshot.val() !== null) {
+            // TODO: write updateLocalAllItems mutation
+            context.commit('updateLocalAllItems', 'Remote all-items: FOUND.');
+            return;
+          }
+
+          // TODO: write createdRemoteAllItems mutation
+          dbAllItemsRef.set(context.state.dataStores.all);
+          context.commit('createdRemoteAllItems', 'Remote all-items: CREATED.');
+        });
+
+      dbBookmarksRef.on('value', (snapshot) => {
+        // TODO: write updateLocalBookmarks mutation
+        context.commit('updateLocalBookmarks', snapshot.val());
+      });
+
+      dbFavoritesRef.on('value', (snapshot) => {
+        // TODO: write updateLocalFavorites mutation
+        context.commit('updateLocalFavorites', snapshot.val());
+      });
+
+      dbAllItemsRef.on('value', (snapshot) => {
+        // TODO: write updateLocalFavorites mutation
+        context.commit('updateLocalAllItems', snapshot.val());
+      });
+    },
     fetchNewsSite(context, sourceId) {
       const state = context.state;
       const newsUrl = state.newsSources[sourceId].endpoint;
