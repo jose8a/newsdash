@@ -98,7 +98,7 @@ export default {
   },
   updateLocalAllItems(state, payload) {
     // TODO:
-    console.log(payload);
+    state.dataStores.all = payload;
   },
   createdRemoteBookmarks(state, payload) {
     // TODO:
