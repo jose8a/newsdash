@@ -11,12 +11,9 @@ export default {
     const BOOKMARKS = `${USERDATA}/bookmarks`;
     const ALLITEMS = `${USERDATA}/allItems`;
 
-    const dbUserDataRef = firebase.database.ref(USERDATA);
     const dbBookmarksRef = firebase.database.ref(BOOKMARKS);
     const dbFavoritesRef = firebase.database.ref(FAVORITES);
     const dbAllItemsRef = firebase.database.ref(ALLITEMS);
-    // --- const dbSourcesRef = firebaseRefs.sources(id);
-    // --- const dbCollectionsRef = firebaseRefs.collections(id);
 
     console.log(`Initial Firebase Sync for user: ${id}`);
     dbBookmarksRef.once('value')
@@ -36,13 +33,12 @@ export default {
       .then((snapshot) => {
         if (snapshot.val() !== null) {
           // TODO: write updateLocalFavorites mutation
-          context.commit('updateLocalFavorites', 'Remote favorites: FOUND.');
+          context.commit('updateLocalFavorites', snapshot.val());
           return;
         }
 
         // TODO: write createdRemoteFavorites mutation
-        // dbFavoritesRef.set({ favorites: context.state.dataStores.favorites });
-        dbUserDataRef.child('favorites').set({ favorites: context.state.dataStores.favorites });
+        dbFavoritesRef.set(context.state.dataStores.favorites);
         context.commit('createdRemoteFavorites', 'Remote favorites: CREATED.');
       });
 
