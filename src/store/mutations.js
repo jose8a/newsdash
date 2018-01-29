@@ -1,7 +1,8 @@
 /* eslint-disable quotes */
 /* eslint-disable no-console */
 /* eslint-disable no-param-reassign */
-import Vue from 'vue';
+
+// ---import Vue from 'vue';
 import firebase from '@/firebase';
 
 export default {
@@ -47,44 +48,37 @@ export default {
   },
   updateFavorites(state, payload) {
     const id = payload.id;
-    const favorites = state.dataStores.favorites;
-    const allItems = state.dataStores.all;
+    const userId = state.firebaseProps.userId;
+    const faves = state.dataStores.favorites;
 
-    const newsItem = allItems[id];
+    const favoritesRef = firebase.database.ref(`/userData/${userId}/favorites`);
+    const allItemsRef = firebase.database.ref(`/userData/${userId}/allItems`);
 
-    // add/remove id to/from 'favorites' datastore
-    if (favorites[id]) {
-      // -- rm 'favorited' property on the newsItem in the 'allNews' collection
-      // -- delete the property, in 'favorites', then return
-      newsItem.favorited = false;
-      Vue.delete(favorites, id);
-
+    // 1 - IF local-faves NOT empty AND already in local-faves, remove from remote-faves
+    // 1a - set nextAllItemsFavorited = false
+    if (faves && faves[id]) {
+      console.log(`Unsetting favorite -- ${id}`);
+      favoritesRef.child(id).set(null);
+      allItemsRef.child(id).child('favorited').set('false');
       return;
     }
-
-    // -- else add the ID to favorites
-    // -- and, toggle 'favorited' property on the newsItem in the 'allNews' collection
-    Vue.set(favorites, id, newsItem.fetchDate);
-    allItems[id].favorited = true;
+    // 2 - IF not in local-faves, add to remote-faves
+    // 2a - set nextAllItemsFavorited = true
+    favoritesRef.child(id).set(true);
+    allItemsRef.child(id).child('favorited').set('true');
+    console.log(`Setting favorite -- ${id}`);
   },
   updateBookmarks(state, payload) {
-    // 0 - SETUP
     const id = payload.id;
     const userId = state.firebaseProps.userId;
     const bmarks = state.dataStores.bookmarks;
-    // const firebaseRefs = state.firebaseRefs;
 
-    console.log(`userId ==> ${userId}`);
     const bookmarksRef = firebase.database.ref(`/userData/${userId}/bookmarks`);
-    // --- const favoritesRef = firebase.database.ref(`/userData/${userId}/favorites`);
     const allItemsRef = firebase.database.ref(`/userData/${userId}/allItems`);
-    // --- const sourcesRef = firebase.database.ref(`/userData/${userId}/newsSources`);
-    // --- const collectionsRef = firebase.database.ref(`/userData/${userId}/sourceCollections`);
-    // --- const userDataRef = firebase.database.ref(`/userData/${userId}`);
 
     // 1 - IF already in local-bmarks, set removal from remote-bmarks
     // 1a - set nextAllItemsBookmarked = false
-    if (bmarks[id]) {
+    if (bmarks && bmarks[id]) {
       console.log(`Unsetting bookmark -- ${id}`);
       bookmarksRef.child(id).set(null);
       allItemsRef.child(id).child('bookmarked').set('false');
@@ -92,21 +86,15 @@ export default {
     }
     // 2 - IF not in local-bmarks, add to remote-bmarks
     // 2a - set nextAllItemsBookmarked = true
-    // const newBookmarkRef = dbBookmarksRef.set({`${id}`: true});
     bookmarksRef.child(id).set(true);
     allItemsRef.child(id).child('bookmarked').set('true');
     console.log(`Setting bookmark -- ${id}`);
   },
   updateLocalBookmarks(state, payload) {
-    // TODO:
-    console.log(payload);
-    console.log("Gotta update local bookmarks!!");
-
     state.dataStores.bookmarks = payload;
   },
   updateLocalFavorites(state, payload) {
-    // TODO:
-    console.log(payload);
+    state.dataStores.favorites = payload;
   },
   updateLocalAllItems(state, payload) {
     // TODO:
