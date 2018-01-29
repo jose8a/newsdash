@@ -25,31 +25,53 @@ export default {
     const favorites = state.dataStores.favorites;
     const allItems = state.dataStores.all;
 
-    const faveKeys = Object.keys(favorites);
-    faveKeys.forEach((id) => {
-      faves.push(allItems[id]);
-    });
+    let faveKeys = null;
+    if (favorites !== null) {
+      faveKeys = Object.keys(favorites);
+
+      faveKeys.forEach((id) => {
+        faves.push(allItems[id]);
+      });
+    }
 
     return faves;
   },
   getNumFavorites(state) {
-    const faveKeys = Object.keys(state.dataStores.favorites);
-    return faveKeys.length;
+    const favorites = state.dataStores.favorites;
+
+    if (favorites !== null) {
+      const faveKeys = Object.keys(state.dataStores.favorites);
+      return faveKeys.length;
+    }
+
+    return 0;
   },
   getBookmarks(state) {
+    console.log("I am GETBOOKMARKS getter!!");
+
     const bookmarkItems = [];
     const bookmarkIds = state.dataStores.bookmarks;
     const allItems = state.dataStores.all;
 
-    const bmIds = Object.keys(bookmarkIds);
-    bmIds.forEach((id) => {
-      bookmarkItems.push(allItems[id]);
-    });
+    let bmIds = null;
+    if (bookmarkIds !== null) {
+      bmIds = Object.keys(bookmarkIds);
+
+      bmIds.forEach((id) => {
+        bookmarkItems.push(allItems[id]);
+      });
+    }
 
     return bookmarkItems;
   },
   getNumBookmarks(state) {
-    const objKeys = Object.keys(state.dataStores.bookmarks);
-    return objKeys.length;
+    const bookmarkIds = state.dataStores.bookmarks;
+
+    if (bookmarkIds !== null) {
+      const objKeys = Object.keys(state.dataStores.bookmarks);
+      return objKeys.length;
+    }
+
+    return 0;
   },
 };
