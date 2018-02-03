@@ -46,7 +46,7 @@ export default {
       .then((snapshot) => {
         if (snapshot.val() !== null) {
           // TODO: write updateLocalAllItems mutation
-          context.commit('updateLocalAllItems', 'Remote all-items: FOUND.');
+          context.commit('updateLocalAllItems', snapshot.val());
           return;
         }
 
