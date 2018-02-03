@@ -62,6 +62,10 @@ export default {
       faveKeys = Object.keys(favorites);
 
       faveKeys.forEach((id) => {
+        if (!allItems[id]) {
+          console.log(`item with id:${id} in allItems is missing -- skip it!`);
+          return;
+        }
         faves.push(allItems[id]);
       });
     }
@@ -90,6 +94,10 @@ export default {
       bmIds = Object.keys(bookmarkIds);
 
       bmIds.forEach((id) => {
+        if (!allItems[id]) {
+          console.log(`item with id:${id} in allItems is missing -- skip it!`);
+          return;
+        }
         bookmarkItems.push(allItems[id]);
       });
     }
