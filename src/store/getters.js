@@ -52,6 +52,9 @@ export default {
   getLatestFetchedNews(state) {
     return state.dataStores.newest.data;
   },
+  getFavoritedIds(state) {
+    return state.dataStores.favorites;
+  },
   getFavorites(state) {
     const faves = [];
     const favorites = state.dataStores.favorites;
@@ -81,6 +84,9 @@ export default {
     }
 
     return 0;
+  },
+  getBookmarkedIds(state) {
+    return state.dataStores.bookmarks;
   },
   getBookmarks(state) {
     console.log("I am GETBOOKMARKS getter!!");

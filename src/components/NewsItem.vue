@@ -15,6 +15,9 @@
 <script>
 /* eslint-disable no-console */
 /* eslint-disable object-shorthand */
+/* eslint-disable no-prototype-builtins */
+
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'newsItem',
@@ -22,14 +25,20 @@ export default {
   mounted() {
   },
   computed: {
+    ...mapGetters({
+      favorites: 'getFavoritedIds',
+      bookmarks: 'getBookmarkedIds',
+    }),
     isFavorite() {
-      if (this.newsbit.favorited) {
+      const id = this.newsbit.sourceId;
+      if (id in this.favorites) {
         return 'fa-star';
       }
       return 'fa-star-o';
     },
     isBookmark() {
-      if (this.newsbit.bookmarked) {
+      const id = this.newsbit.sourceId;
+      if (id in this.bookmarks) {
         return 'fa-bookmark';
       }
       return 'fa-bookmark-o';
