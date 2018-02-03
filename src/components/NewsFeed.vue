@@ -29,9 +29,6 @@ export default {
   },
   computed: {
     ...mapGetters({
-      serverUrl: 'getBaseUrl',
-      apiSources: 'getSources',
-      sourceKeys: 'getSourceKeys',
       latestNews: 'getLatestFetchedNews',
     }),
     activeFeed() {
