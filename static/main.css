@@ -128,7 +128,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 15vh;
+  height: 20vh;
   background-color: var(--color-navs);
 }
 
@@ -329,6 +329,7 @@ a {
   padding-left: 1rem;
   height: 10vh;
   background-color: var(--color-nav-bar);
+  font-size: 1.2rem;
   color: var(--color-navs);
   border-top: 2px var(--color-navs) solid;
 }
