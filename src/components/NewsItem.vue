@@ -1,5 +1,6 @@
 <template>
   <div :id="newsbit.sourceId" class="postItem" :class="newsbit.source">
+    <div v-if="hasNoUrl(newsbit.url)" class="flash-warn">NO URL</div>
     <p class="post-url"><a :href="newsbit.url">{{ newsbit.title }}</a></p>
     <p class="post-host"> {{ postHost(newsbit.url) }}</p>
     <p class="post-date"> {{ newsbit.fetchDate }}</p>
@@ -36,7 +37,18 @@ export default {
   },
   methods: {
     postHost(url) {
-      return url.split('/')[2];
+      // TODO: FIXME! -- if url is undefined, still fails
+      const splitUrl = url.split('/');
+
+      if (splitUrl.length > 2) {
+        return splitUrl[2];
+      }
+      return url;
+    },
+    hasNoUrl(url) {
+      // TODO: FIXME! -- only needed for debugging -- remove??
+      if (!url) return true;
+      return false;
     },
     toggleFavorite() {
       const id = this.newsbit.sourceId;
