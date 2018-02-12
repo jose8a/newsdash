@@ -169,8 +169,9 @@ body {
 
 .nav-bar-link {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
   margin: 0;
   padding: 0;
   padding-left: 1rem;
