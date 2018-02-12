@@ -349,3 +349,37 @@ a {
   padding-left: 2rem;
   padding-right: 0;
 }
+
+.fa-star {
+  transform: none;
+  animation: is-favorited 1s ease-out;
+}
+
+.fa-bookmark {
+  transform: none;
+  animation: is-bookmarked 1s ease-out;
+}
+
+@keyframes is-favorited {
+  50% {
+    transform-origin: 50% 50%;
+    transform: rotateZ(-20deg);
+  }
+  100% {
+    transform-origin: 50% 50%;
+    transform: scale(1.5) rotateZ(20deg);
+    color: hsl(240, 60%, 70%);
+  }
+}
+
+@keyframes is-bookmarked {
+  100% {
+    transform-origin: 50% 50%;
+    transform: scale(1.7);
+    color: hsl(240, 60%, 70%);
+  }
+}
+
+
+
+
