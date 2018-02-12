@@ -11,7 +11,7 @@
         <p class="post-url">You have Zero Favorited items on your Shelf.</p>
       </div>
 
-      <news-item v-for="item in favorites" :newsbit="item" :key="item.sourceId"></news-item>
+      <news-item v-for="item in sortedFavorites" :newsbit="item" :key="item.sourceId"></news-item>
     </div><!-- end:#newsfeed -->
 </template>
 
@@ -34,6 +34,21 @@ export default {
     }),
     nilFavoriteItems() {
       return this.numFaves === 0;
+    },
+    sortedFavorites() {
+      const entries = this.favorites;
+
+      return entries.sort((entry1, entry2) => {
+        if (entry1.fetchDate > entry2.fetchDate) {
+          return -1;
+        }
+
+        if (entry2.fetchDate > entry1.fetchDate) {
+          return 1;
+        }
+
+        return 0;
+      });
     },
   },
 };
