@@ -54,6 +54,6 @@ export default {
   }
 
   .nav-title {
-    padding-left: .25rem;
+    padding-left: .5rem;
   }
 </style>
