@@ -9,6 +9,7 @@ export default {
   },
 
   baseServerUrl: "http://localhost:3500",
+  newsFeedLoading: false,
 
   sourceCollections: {
     motley: {

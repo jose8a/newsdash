@@ -112,4 +112,7 @@ export default {
   toggleBookmark(context, id) {
     context.commit('updateBookmarks', { id });
   },
+  isFeedLoading(context, status) {
+    context.commit('updateFeedStatus', { status });
+  },
 };

@@ -50,11 +50,13 @@ export default {
       this.$store.state.activeNav.activeFeed = this.apiSources[id].title;
       this.$store.state.activeNav.sideActive = id;
       this.$store.dispatch('fetchNewsSite', id);
+      this.$store.dispatch('isFeedLoading', true);
     },
     fetchNewsCollection(listKey) {
       this.$store.state.activeNav.activeFeed = this.listsInfo[listKey].title;
       this.$store.state.activeNav.sideActive = listKey;
       this.$store.dispatch('fetchNewsCollection', listKey);
+      this.$store.dispatch('isFeedLoading', true);
     },
     activeClass(id) {
       const activeItem = this.$store.state.activeNav.sideActive;

@@ -44,6 +44,10 @@ export default {
       allItems[newsItem.sourceId] = newsItem;
     });
 
+    if (newItems.data.length === 0) {
+      state.newsFeedLoading = false;
+    }
+
     dbAllItemsRef.update(updateItems);
   },
   updateFavorites(state, payload) {
@@ -98,7 +102,14 @@ export default {
   },
   updateLocalAllItems(state, payload) {
     // TODO:
+    console.log('Am updating LocalAllItems ...');
     state.dataStores.all = payload;
+    state.newsFeedLoading = false;
+    console.warn(`Feed status: ${state.newsFeedLoading}`);
+  },
+  updateFeedStatus(state, payload) {
+    console.warn(`Feed status: ${payload.status}`);
+    state.newsFeedLoading = payload.status;
   },
   createdRemoteBookmarks(state, payload) {
     // TODO:
