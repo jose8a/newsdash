@@ -115,4 +115,7 @@ export default {
   isFeedLoading(context, status) {
     context.commit('updateFeedStatus', { status });
   },
+  toggleSidebar(context) {
+    context.commit('toggleActiveSidebar');
+  },
 };

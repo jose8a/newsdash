@@ -10,6 +10,7 @@ export default {
 
   baseServerUrl: "http://localhost:3500",
   newsFeedLoading: false,
+  activeSidebar: 'MIXES',
 
   sourceCollections: {
     motley: {

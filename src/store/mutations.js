@@ -123,4 +123,14 @@ export default {
     // TODO:
     console.log(payload);
   },
+  toggleActiveSidebar(state) {
+    if (state.activeSidebar === 'SITES') {
+      state.activeSidebar = 'MIXES';
+      return;
+    }
+
+    if (state.activeSidebar === 'MIXES') {
+      state.activeSidebar = 'SITES';
+    }
+  },
 };

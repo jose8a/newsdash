@@ -37,6 +37,9 @@ export default {
   getBaseUrl(state) {
     return state.baseServerUrl;
   },
+  getActiveSidebar(state) {
+    return state.activeSidebar;
+  },
   getIsFeedLoading(state) {
     return state.newsFeedLoading;
   },
