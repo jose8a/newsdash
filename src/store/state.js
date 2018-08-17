@@ -86,16 +86,17 @@ export default {
       url: 'http://www.echojs.com/',
       endpoint: '/tech/echo',
     },
-    cssTricks: {
-      title: 'CSS Tricks',
-      url: 'https://css-tricks.com/',
-      endpoint: '/tech/css-tricks',
-    },
-    devTo: {
-      title: 'DEV Comm',
-      url: 'https://dev.to/',
-      endpoint: '/tech/dev-to',
-    },
+    // ===================================
+    // Disable CSS-Tricks due to recent problems
+    // fetching news articles on the site
+    //
+    // --- cssTricks: {
+    // ---   title: 'CSS Tricks',
+    // ---   url: 'https://css-tricks.com/',
+    // ---   endpoint: '/tech/css-tricks',
+    // --- },
+    //
+    // ===================================
     scotch: {
       title: 'Scotch Devs',
       url: 'https://scotch.io/',
