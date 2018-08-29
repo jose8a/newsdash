@@ -14,7 +14,6 @@
           <span class="feed-count"> {{ numFavorites }} </span>
           <span class="nav-title">Shelf</span>
         </router-link>
-        <router-link to='/archives' tag="div" class="nav-bar-link">Archives</router-link>
       </div>
     </div>
 </template>

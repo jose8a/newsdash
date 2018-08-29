@@ -2,7 +2,6 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import NewsRack from '@/components/NewsRack';
 import Shelf from '@/components/Shelf';
-import Archives from '@/components/Archives';
 import Reader from '@/components/Reader';
 import NotFoundComponent from '@/components/NotFound';
 
@@ -25,11 +24,6 @@ export default new Router({
       path: '/shelf',
       name: 'shelf',
       component: Shelf,
-    },
-    {
-      path: '/archives',
-      name: 'archives',
-      component: Archives,
     },
     { path: '*',
       component: NotFoundComponent,
