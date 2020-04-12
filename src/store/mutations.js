@@ -50,6 +50,11 @@ export default {
 
     dbAllItemsRef.update(updateItems);
   },
+
+  /*
+   * toggle ONE item in the Favorites datastore
+   *
+   */
   updateFavorites(state, payload) {
     const id = payload.id;
     const userId = state.firebaseProps.userId;
@@ -72,6 +77,11 @@ export default {
     allItemsRef.child(id).child('favorited').set('true');
     console.log(`Setting favorite -- ${id}`);
   },
+
+  /*
+   * toggle ONE item in the Bookmarks datastore
+   *
+   */
   updateBookmarks(state, payload) {
     const id = payload.id;
     const userId = state.firebaseProps.userId;

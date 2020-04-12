@@ -5,6 +5,11 @@
 /* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-prototype-builtins */
+
+/* eslint-disable no-unused-vars */
+import firebase from '@/firebase';
+
+
 function isEmpty(obj) {
   // CREDIT:
   // https://stackoverflow.com/questions/4994201/is-object-empty

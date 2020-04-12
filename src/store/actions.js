@@ -15,6 +15,9 @@ export default {
     const dbFavoritesRef = firebase.database.ref(FAVORITES);
     const dbAllItemsRef = firebase.database.ref(ALLITEMS);
 
+    // limit to the sublist at the end of the collection
+    // const dbAllItemsRef = firebase.database.ref(ALLITEMS).limitToLast();
+
     console.log(`Initial Firebase Sync for user: ${id}`);
     dbBookmarksRef.once('value')
       .then((snapshot) => {
